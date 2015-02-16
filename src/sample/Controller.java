@@ -20,6 +20,7 @@ public class Controller {
         // If there was an error authenticating, go back to login screen.
         if ( user == null ) {
             stage.setScene( view.getLoginScene() );
+            return;
         }
 
         stage.setScene( view.getWelcomeScene( user ) );
