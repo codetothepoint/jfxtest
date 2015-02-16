@@ -9,14 +9,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 import java.text.MessageFormat;
+import java.util.Collection;
+import java.util.Map;
 
 public class View {
 
@@ -69,10 +69,31 @@ public class View {
         return loginScene;
     }
 
-    public Scene getWelcomeScene( User user ) {
-        StackPane root = new StackPane();
-        root.getChildren().add( new Label( MessageFormat.format( "Welcome, {0} {1}!", user.getFirstName(), user.getLastName() ) ) );
+    public Scene getWelcomeScene( User user, Map<String, User> allUsers ) {
+        BorderPane root = new BorderPane();
+        root.setTop( new Label( MessageFormat.format( "Welcome, {0} {1}!", user.getFirstName(), user.getLastName() ) ) );
+        root.setCenter( getUserGrid( allUsers.values() ) );
         return new Scene( root, VIEW_WIDTH, VIEW_HEIGHT );
+    }
+
+    private Pane getUserGrid( Collection<User> users ) {
+        VBox rows = new VBox();
+
+        for ( User user : users ) {
+            rows.getChildren().add( getProductRow( user ) );
+        }
+
+        return rows;
+    }
+
+    private Pane getProductRow( User user ) {
+        HBox row = new HBox();
+
+        row.getChildren().add( new Label( String.valueOf( user.getId() ) ) );
+        row.getChildren().add( new Label( user.getFirstName() ) );
+        row.getChildren().add( new Label( user.getLastName() ) );
+
+        return row;
     }
 
     private GridPane getStandardGrid() {

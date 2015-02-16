@@ -2,6 +2,8 @@ package sample;
 
 import javafx.stage.Stage;
 
+import java.util.Map;
+
 public class Controller {
 
     Stage stage;
@@ -23,6 +25,8 @@ public class Controller {
             return;
         }
 
-        stage.setScene( view.getWelcomeScene( user ) );
+        Map<String, User> allUsers = authService.getAllUsers();
+
+        stage.setScene( view.getWelcomeScene( user, allUsers ) );
     }
 }

@@ -17,6 +17,10 @@ public class AuthenticationService {
         }
     }
 
+    public Map<String, User> getAllUsers() {
+        return users;
+    }
+
     public User authenticate( String username, String password ) {
 
         User user = users.get( username );
